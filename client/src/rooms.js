@@ -57,12 +57,12 @@ export default class Rooms extends React.Component {
 			)
 		}
 		
-		if(allRooms.length == 0) {
-			return (<div className="rooms">
-						<h2>No rooms...</h2>
-					</div>
-			)
-		}
+		// if(allRooms.length == 0) {
+		// 	return (<div className="rooms">
+		// 				<h2>No rooms...</h2>
+		// 			</div>
+		// 	)
+		// }
 
 		return (
 			<div className="rooms">

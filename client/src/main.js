@@ -24,11 +24,13 @@ export default class Main extends React.Component {
 		return (
 			<Router>
 				<div className="main container">
-					<nav>
-						<Link to="/">Home</Link>
-						<Link to="/rooms">All Rooms</Link>
-						<Link to="/messages">Messages</Link>
-					</nav>
+					<div className="nav_container">
+						<nav className="navbar navbar-default">
+							<NavLink className="nav-link" activeClassName="active" to="/">Home</NavLink>
+							<NavLink className="nav-link" activeClassName="active" to="/rooms">All Rooms</NavLink>
+							<NavLink className="nav-link" activeClassName="active" to="/messages">Messages</NavLink>
+						</nav>
+					</div>
 
 					<Switch>
 						<Route exact path="/" render = { () => {

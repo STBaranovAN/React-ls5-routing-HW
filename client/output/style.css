@@ -8,6 +8,10 @@ div.main {
 	margin: 10px;
 }
 
+.nav_container {
+	width: 400px;
+}
+
 div.rooms ul {
 	border: 2px solid blue;
 	list-style-type: none;
