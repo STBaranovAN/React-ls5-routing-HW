@@ -11,6 +11,13 @@ export default class Messages extends React.Component {
 		}
 	}
 
+	componentWillMount(){
+		if(this.props.getAll) {
+			this.setState({currentRoomName: "Messages from all rooms"});
+			this.getAllMessages();
+		}
+	}
+
 	/* componentDidMount(){
 		if(this.props.selectedRoom) {
 			this.setState({currentRoomId: nextProps.selectedRoom.id});
@@ -18,8 +25,11 @@ export default class Messages extends React.Component {
 	} */
 
 	componentWillReceiveProps(nextProps){
-		this.setState({currentRoomName: nextProps.selectedRoom.name});
-		this.getRoomMessages(nextProps.selectedRoom.id);
+		if(nextProps.selectedRoom)
+		{
+			this.setState({currentRoomName: nextProps.selectedRoom.name});
+			this.getRoomMessages(nextProps.selectedRoom.id);
+		} 
 	}
 	
 	/* shouldComponentUpdate(nextProps, nextState){
@@ -33,6 +43,28 @@ export default class Messages extends React.Component {
 
 		let messages = [];
 			axios.get(confObj.api_url + `/${roomId}/messages`).then( responseObj => {
+
+				if(responseObj.hasOwnProperty("data"))
+				{
+					messages = responseObj.data;
+					if(messages.length >= 0)
+					{
+						this.setState({allMessages: messages, err: false}, () => {
+							// console.log(this.state);
+						});
+					}
+				}
+			}, err => {
+				this.setState({err: true}, () => {
+					console.log(err);
+				})
+		} );
+	}
+
+	getAllMessages(){
+
+		let messages = [];
+			axios.get(confObj.api_url + `/allmessages`).then( responseObj => {
 
 				if(responseObj.hasOwnProperty("data"))
 				{

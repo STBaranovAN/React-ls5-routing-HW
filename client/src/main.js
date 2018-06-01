@@ -23,7 +23,7 @@ export default class Main extends React.Component {
 	render() {
 		return (
 			<Router>
-				<div>
+				<div className="main container">
 					<nav>
 						<Link to="/">Home</Link>
 						<Link to="/rooms">All Rooms</Link>
@@ -33,7 +33,8 @@ export default class Main extends React.Component {
 					<Switch>
 						<Route exact path="/" render = { () => {
 							return (
-								<div className="main container">
+								// <div className="main container">
+								<div>
 									<div className="row">
 										<div className="col">
 											<Rooms setRoom={this.setRoom}/>
@@ -49,7 +50,7 @@ export default class Main extends React.Component {
 						>
 						</Route>
 						<Route exact path="/rooms" component={Rooms} />
-						<Route exact path="/messages" component={Messages} />
+						<Route exact path="/messages" render={ () => <Messages getAll={true}/>} />
 					</Switch>
 				</div>
 			</Router>
