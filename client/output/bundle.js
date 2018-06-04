@@ -27716,7 +27716,7 @@ var Main = function (_React$Component) {
 							{ className: "navbar navbar-default" },
 							_react2.default.createElement(
 								_reactRouterDom.NavLink,
-								{ className: "nav-link", activeClassName: "active", to: "/" },
+								{ className: "nav-link", activeClassName: "active", exact: true, to: "/" },
 								"Home"
 							),
 							_react2.default.createElement(
