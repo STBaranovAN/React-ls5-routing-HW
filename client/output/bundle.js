@@ -27707,54 +27707,63 @@ var Main = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					"div",
-					null,
+					{ className: "main container" },
 					_react2.default.createElement(
-						"nav",
-						null,
+						"div",
+						{ className: "nav_container" },
 						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ to: "/" },
-							"Home"
-						),
-						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ to: "/rooms" },
-							"All Rooms"
-						),
-						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ to: "/messages" },
-							"Messages"
+							"nav",
+							{ className: "navbar navbar-default" },
+							_react2.default.createElement(
+								_reactRouterDom.NavLink,
+								{ className: "nav-link", activeClassName: "active", to: "/" },
+								"Home"
+							),
+							_react2.default.createElement(
+								_reactRouterDom.NavLink,
+								{ className: "nav-link", activeClassName: "active", to: "/rooms" },
+								"All Rooms"
+							),
+							_react2.default.createElement(
+								_reactRouterDom.NavLink,
+								{ className: "nav-link", activeClassName: "active", to: "/messages" },
+								"Messages"
+							)
 						)
 					),
 					_react2.default.createElement(
 						_reactRouterDom.Switch,
 						null,
 						_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", render: function render() {
-								return _react2.default.createElement(
-									"div",
-									{ className: "main container" },
+								return (
+									// <div className="main container">
 									_react2.default.createElement(
 										"div",
-										{ className: "row" },
+										null,
 										_react2.default.createElement(
 											"div",
-											{ className: "col" },
-											_react2.default.createElement(_rooms2.default, { setRoom: _this2.setRoom })
-										),
-										_react2.default.createElement(
-											"div",
-											{ className: "col" },
-											_react2.default.createElement(_messages2.default, { selectedRoom: _this2.state.selectedRoom }),
-											_react2.default.createElement("br", null),
-											_react2.default.createElement(_postmsg2.default, { setRoom: _this2.setRoom, selectedRoom: _this2.state.selectedRoom })
+											{ className: "row" },
+											_react2.default.createElement(
+												"div",
+												{ className: "col" },
+												_react2.default.createElement(_rooms2.default, { setRoom: _this2.setRoom })
+											),
+											_react2.default.createElement(
+												"div",
+												{ className: "col" },
+												_react2.default.createElement(_messages2.default, { selectedRoom: _this2.state.selectedRoom }),
+												_react2.default.createElement("br", null),
+												_react2.default.createElement(_postmsg2.default, { setRoom: _this2.setRoom, selectedRoom: _this2.state.selectedRoom })
+											)
 										)
 									)
 								);
 							}
 						}),
 						_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/rooms", component: _rooms2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/messages", component: _messages2.default })
+						_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/messages", render: function render() {
+								return _react2.default.createElement(_messages2.default, { getAll: true });
+							} })
 					)
 				)
 			);
@@ -27815,17 +27824,28 @@ var Messages = function (_React$Component) {
 		return _this;
 	}
 
-	/* componentDidMount(){
- 	if(this.props.selectedRoom) {
- 		this.setState({currentRoomId: nextProps.selectedRoom.id});
- 	}
- } */
-
 	_createClass(Messages, [{
+		key: "componentWillMount",
+		value: function componentWillMount() {
+			if (this.props.getAll) {
+				this.setState({ currentRoomName: "Messages from all rooms" });
+				this.getAllMessages();
+			}
+		}
+
+		/* componentDidMount(){
+  	if(this.props.selectedRoom) {
+  		this.setState({currentRoomId: nextProps.selectedRoom.id});
+  	}
+  } */
+
+	}, {
 		key: "componentWillReceiveProps",
 		value: function componentWillReceiveProps(nextProps) {
-			this.setState({ currentRoomName: nextProps.selectedRoom.name });
-			this.getRoomMessages(nextProps.selectedRoom.id);
+			if (nextProps.selectedRoom) {
+				this.setState({ currentRoomName: nextProps.selectedRoom.name });
+				this.getRoomMessages(nextProps.selectedRoom.id);
+			}
 		}
 
 		/* shouldComponentUpdate(nextProps, nextState){
@@ -27852,6 +27872,28 @@ var Messages = function (_React$Component) {
 				}
 			}, function (err) {
 				_this2.setState({ err: true }, function () {
+					console.log(err);
+				});
+			});
+		}
+	}, {
+		key: "getAllMessages",
+		value: function getAllMessages() {
+			var _this3 = this;
+
+			var messages = [];
+			_axios2.default.get(confObj.api_url + "/allmessages").then(function (responseObj) {
+
+				if (responseObj.hasOwnProperty("data")) {
+					messages = responseObj.data;
+					if (messages.length >= 0) {
+						_this3.setState({ allMessages: messages, err: false }, function () {
+							// console.log(this.state);
+						});
+					}
+				}
+			}, function (err) {
+				_this3.setState({ err: true }, function () {
 					console.log(err);
 				});
 			});
@@ -28216,17 +28258,12 @@ var Rooms = function (_React$Component) {
 				);
 			}
 
-			if (allRooms.length == 0) {
-				return _react2.default.createElement(
-					"div",
-					{ className: "rooms" },
-					_react2.default.createElement(
-						"h2",
-						null,
-						"No rooms..."
-					)
-				);
-			}
+			// if(allRooms.length == 0) {
+			// 	return (<div className="rooms">
+			// 				<h2>No rooms...</h2>
+			// 			</div>
+			// 	)
+			// }
 
 			return _react2.default.createElement(
 				"div",

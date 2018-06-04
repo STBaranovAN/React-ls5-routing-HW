@@ -9,7 +9,7 @@ div.main {
 }
 
 .nav_container {
-	width: 400px;
+	width: 360px;
 }
 
 div.rooms ul {
@@ -44,4 +44,9 @@ div.msgform textarea {
 
 p.error {
 	color: crimson;
+}
+
+a.active {
+	background-color: #0069d9;
+	color: azure; 
 }

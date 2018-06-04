@@ -26,7 +26,7 @@ export default class Main extends React.Component {
 				<div className="main container">
 					<div className="nav_container">
 						<nav className="navbar navbar-default">
-							<NavLink className="nav-link" activeClassName="active" to="/">Home</NavLink>
+							<NavLink className="nav-link" activeClassName="active" exact to="/">Home</NavLink>
 							<NavLink className="nav-link" activeClassName="active" to="/rooms">All Rooms</NavLink>
 							<NavLink className="nav-link" activeClassName="active" to="/messages">Messages</NavLink>
 						</nav>
