@@ -28538,7 +28538,28 @@ var Messages = function (_React$Component) {
 				);
 			}
 
-			if (allMessages.length == 0) {
+			if (allMessages.length > 0) {
+				return _react2.default.createElement(
+					"div",
+					{ className: "messages" },
+					_react2.default.createElement(
+						"h2",
+						null,
+						roomName
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "text-right" },
+						allMessages.map(function (item, index) {
+							return _react2.default.createElement(
+								"p",
+								{ key: index },
+								item.text
+							);
+						})
+					)
+				);
+			} else {
 				return _react2.default.createElement(
 					"div",
 					{ className: "messages" },
@@ -28549,27 +28570,6 @@ var Messages = function (_React$Component) {
 					)
 				);
 			}
-
-			return _react2.default.createElement(
-				"div",
-				{ className: "messages" },
-				_react2.default.createElement(
-					"h2",
-					null,
-					roomName
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "text-right" },
-					allMessages.map(function (item, index) {
-						return _react2.default.createElement(
-							"p",
-							{ key: index },
-							item.text
-						);
-					})
-				)
-			);
 		}
 	}]);
 
@@ -28864,7 +28864,6 @@ var Rooms = function (_React$Component) {
 
 			var error = this.state.err || false;
 			var allRooms = this.state.allRooms || [];
-			var currentRoom = this.state.currentRoom || {};
 
 			if (error) {
 				return _react2.default.createElement(
@@ -28878,29 +28877,34 @@ var Rooms = function (_React$Component) {
 				);
 			}
 
-			// if(allRooms.length == 0) {
-			// 	return (<div className="rooms">
-			// 				<h2>No rooms...</h2>
-			// 			</div>
-			// 	)
-			// }
-
-			return _react2.default.createElement(
-				"div",
-				{ className: "rooms" },
-				_react2.default.createElement(
-					"ul",
-					null,
-					allRooms.map(function (item, index) {
-						return _react2.default.createElement(_item2.default, {
-							key: index, name: item.name,
-							onClick: function onClick() {
-								_this3.props.setRoom(item);
-							}
-						});
-					})
-				)
-			);
+			if (allRooms.length > 0) {
+				return _react2.default.createElement(
+					"div",
+					{ className: "rooms" },
+					_react2.default.createElement(
+						"ul",
+						null,
+						allRooms.map(function (item, index) {
+							return _react2.default.createElement(_item2.default, {
+								key: index, name: item.name,
+								onClick: function onClick() {
+									_this3.props.setRoom(item);
+								}
+							});
+						})
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					"div",
+					{ className: "rooms" },
+					_react2.default.createElement(
+						"h2",
+						null,
+						"No rooms..."
+					)
+				);
+			}
 		}
 	}]);
 

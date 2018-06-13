@@ -47,7 +47,6 @@ export default class Rooms extends React.Component {
 	render() {
 		let error = this.state.err || false;
 		let allRooms = this.state.allRooms || [];
-		let currentRoom = this.state.currentRoom || {};
 
 		if(error)		
 		{
@@ -57,27 +56,27 @@ export default class Rooms extends React.Component {
 			)
 		}
 		
-		// if(allRooms.length == 0) {
-		// 	return (<div className="rooms">
-		// 				<h2>No rooms...</h2>
-		// 			</div>
-		// 	)
-		// }
-
-		return (
-			<div className="rooms">
-						<ul>
-							{allRooms.map((item, index) => {
-								return <Room
-										key={index} name={item.name} 
-										onClick={() => { 
-											this.props.setRoom(item);
-										}}
-									/>
-							})}
-						</ul>
-			</div>
-		)
+		if(allRooms.length > 0) {
+			return (
+				<div className="rooms">
+							<ul>
+								{allRooms.map((item, index) => {
+									return <Room
+											key={index} name={item.name} 
+											onClick={() => { 
+												this.props.setRoom(item);
+											}}
+										/>
+								})}
+							</ul>
+				</div>
+			)	
+		} else {
+			return (<div className="rooms">
+						<h2>No rooms...</h2>
+					</div>
+			)
+		}
 	}
 }
 
